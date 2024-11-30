@@ -3,9 +3,14 @@ import { Link, NavLink } from "react-router-dom";
 
 const Navbar = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const [isSearchFormOpen, setSearchFormOpen] = useState(false);
 
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
+  };
+
+  const toggleSearchForm = () => {
+    setSearchFormOpen(!isSearchFormOpen);
   };
 
   return (
@@ -38,7 +43,7 @@ const Navbar = () => {
                 </li>
                 <li>
                   <NavLink
-                    to="/"
+                    to="/shop"
                     className="relative group transition-all duration-300"
                   >
                     Shop
@@ -47,7 +52,7 @@ const Navbar = () => {
                 </li>
                 <li>
                   <NavLink
-                    to="/"
+                    to="/pages"
                     className="relative group transition-all duration-300"
                   >
                     Pages
@@ -56,7 +61,7 @@ const Navbar = () => {
                 </li>
                 <li>
                   <NavLink
-                    to="/"
+                    to="/contact"
                     className="relative group transition-all duration-300"
                   >
                     Contact
@@ -70,15 +75,15 @@ const Navbar = () => {
           {/* Icons Section */}
           <div>
             <nav>
-              <ul className="flex gap-6 items-center">
+              <ul className="flex gap-6 ">
                 <li>
-                  <NavLink to="/">
+                  <button onClick={toggleSearchForm}>
                     <img
                       className="w-6 hover:opacity-80 transition-opacity duration-300"
                       src="https://res.cloudinary.com/dj2edy2rg/image/upload/v1732979094/search_q0taov.png"
                       alt="Search"
                     />
-                  </NavLink>
+                  </button>
                 </li>
                 <li>
                   <button onClick={toggleSidebar}>
@@ -106,8 +111,9 @@ const Navbar = () => {
 
       {/* Sidebar */}
       <div
-        className={`fixed top-0 right-0 h-full w-72 bg-white shadow-lg transform transition-transform duration-300 ${isSidebarOpen ? "translate-x-0" : "translate-x-full"
-          }`}
+        className={`fixed top-0 right-0 h-full w-72 bg-white shadow-lg transform transition-transform duration-300 ${
+          isSidebarOpen ? "translate-x-0" : "translate-x-full"
+        }`}
       >
         <div className="p-4 flex justify-between items-center">
           <h2 className="text-lg font-bold">Cart</h2>
@@ -131,8 +137,45 @@ const Navbar = () => {
           onClick={toggleSidebar}
         ></div>
       )}
+
+      {/* Search Form */}
+      <div
+        className={`fixed top-0 left-0 w-full bg-white shadow-lg py-4 transform transition-transform duration-300 ${
+          isSearchFormOpen ? "translate-y-0" : "-translate-y-full"
+        } flex justify-center items-center`}
+      >
+        <form
+          className="flex items-center gap-2"
+          onSubmit={(e) => {
+            e.preventDefault();
+            console.log("Search submitted:", e.target.elements.search.value);
+          }}
+        >
+          <input
+            type="text"
+            name="search"
+            placeholder="Search..."
+            className="w-[60vh] p-2 border border-gray-300 rounded-md focus:outline-none"
+            required
+          />
+          <button
+            type="submit"
+            className="px-4 py-2 bg-purple-500 text-white font-bold rounded-md hover:bg-purple-600 transition"
+          >
+            Submit
+          </button>
+          <button
+            onClick={toggleSearchForm}
+            type="button"
+            className="ml-2 text-red-500 font-bold text-lg"
+          >
+            X
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
 
 export default Navbar;
+
