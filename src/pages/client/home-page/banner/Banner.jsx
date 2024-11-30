@@ -90,7 +90,7 @@ const BannerSlider = () => {
                 </div>
 
                 {/* Slider Navigation */}
-                <div className="absolute bottom-0 right-12 transform -translate-y-1/2 p-4 cursor-pointer" onClick={prevSlide}>
+                <div className="absolute bottom-0 right-12 items-center transform -translate-y-1/2 p-4 cursor-pointer" onClick={prevSlide}>
                     <span className="text-white text-3xl">
                         <span>
                             <FaChevronLeft />
