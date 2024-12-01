@@ -14,7 +14,7 @@ const TrendingProduct = () => {
         setTimeout(() => {
             setVisibleProduct((prevState) => prevState + 8); // Load 8 more products
             setIsLoading(false); // Stop loading animation after 3 seconds
-        }, 3000); // 3 seconds delay
+        }, 1000); // 3 seconds delay
 
         // Keep the page at its current scroll position
         window.scrollTo({
