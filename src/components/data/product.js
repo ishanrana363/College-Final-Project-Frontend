@@ -98,7 +98,7 @@ export const product = [
     {
         "id": 9,
         "name": "Foundation Kit",
-        "category": "Cosmetic",
+        "category": "cosmetics",
         "description": "All-in-one foundation kit for a flawless finish.",
         "price": 40.00,
         "ldPrice": 55.00,
@@ -122,7 +122,7 @@ export const product = [
     {
         "id": 11,
         "name": "Scarf Set",
-        "category": "Accessories",
+        "category": "cosmetics",
         "description": "Soft and cozy scarf set for cold weather.",
         "price": 20.00,
         "ldPrice": 30.00,
@@ -146,7 +146,7 @@ export const product = [
     {
         "id": 13,
         "name": "Gold Bracelet",
-        "category": "Jewellery",
+        "category": "cosmetics",
         "description": "18k gold bracelet with an intricate design.",
         "price": 300.00,
         "ldPrice": 350.00,
@@ -170,7 +170,7 @@ export const product = [
     {
         "id": 15,
         "name": "Formal Shoes",
-        "category": "Footwear",
+        "category": "cosmetics",
         "description": "Premium leather formal shoes for men.",
         "price": 85.00,
         "ldPrice": 100.00,
