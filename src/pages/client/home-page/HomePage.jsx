@@ -1,4 +1,5 @@
 import Banner from './banner/Banner'
+import Blog from './blog-page/Blog'
 import Category from './category/Category'
 import Deal from './deal-section/Deal'
 import Feature from './feature-section/Feature'
@@ -14,6 +15,7 @@ const HomePage = () => {
             <TrendingProduct></TrendingProduct>
             <Deal></Deal>
             <Feature></Feature>
+            <Blog></Blog>
         </div>
     )
 }
