@@ -3,22 +3,16 @@ import ProductRating from '../product-rating/ProductRating'
 import { FaShoppingCart } from 'react-icons/fa'
 
 // eslint-disable-next-line react/prop-types
-const ProductCard = ({categoryData,categoryName}) => {
+const ProductCard = ({ product }) => {
     return (
         <div>
             <div className="w-11/12 mx-auto">
-                {/* Category Banner Section */}
-                <section className="bg-[#FB977C] h-[40vh] my-9 flex flex-col items-center justify-center rounded-lg">
-                    <h2 className="text-black text-3xl font-semibold">{categoryName.toLocaleUpperCase()}</h2>
-                    <p className="text-center text-lg mt-2">
-                        Browse a diverse range of categories, from chic dresses to versatile accessories. Elevate your style today!
-                    </p>
-                </section>
+
 
                 {/* Product Grid Section */}
                 <div className="w-full mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
-                    {categoryData.length > 0 ? (
-                        categoryData.map((item) => (
+                    {product ? (
+                        product.map((item) => (
                             <div key={item.id} className="bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105">
                                 {/* Image Section */}
                                 <div className="relative">

@@ -2,7 +2,6 @@ import React from 'react';
 import { FaStar, FaStarHalfAlt, FaRegStar } from 'react-icons/fa';  // Importing different types of stars
 
 const ProductRating = ({ rating }) => {
-    window.scrollTo(0, 0);
     const totalStars = 5;
     const filledStars = Math.floor(rating); // Whole filled stars
     const halfStar = rating % 1 >= 0.5; // If rating has a half star
