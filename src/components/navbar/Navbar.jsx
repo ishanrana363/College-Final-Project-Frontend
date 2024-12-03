@@ -95,7 +95,7 @@ const Navbar = () => {
                   </button>
                 </li>
                 <li>
-                  <NavLink to="/profile">
+                  <NavLink to="/login">
                     <img
                       className="w-6 hover:opacity-80 transition-opacity duration-300"
                       src="https://res.cloudinary.com/dj2edy2rg/image/upload/v1732979093/user_duftrh.png"
