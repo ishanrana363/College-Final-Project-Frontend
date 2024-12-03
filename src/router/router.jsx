@@ -3,6 +3,7 @@ import Layout from "../layout/Layout";
 import HomePage from './../pages/client/home-page/HomePage';
 import CategoryProduct from "../pages/client/categoy-product-page/CategoryProduct";
 import LoginForm from "../components/login/LoginForm";
+import SignUpForm from "../components/registration/SignUpForm";
 
 
 export const router = createBrowserRouter([
@@ -24,5 +25,9 @@ export const router = createBrowserRouter([
     {
         path : "/login",
         element : <LoginForm></LoginForm>
+    },
+    {
+        path :"/sign-up",
+        element : <SignUpForm></SignUpForm>
     }
 ])
