@@ -1,10 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { useLoginUserMutation } from "../../redux/feature/auth/authApi";
 
 const LoginForm = () => {
-  const { register, handleSubmit, watch,formState: { errors } }  = useForm();
-  const onSubmit = data => console.log(data);
+  const [isErrors,setIsError] = useState('')
+  const [loginUser, { isLoading, isError, isSuccess }] = useLoginUserMutation();
+  const { register, handleSubmit, watch, formState: { errors } } = useForm();
+  const onSubmit =  async (data) => {
+    try {
+      const response = await loginUser(data).unwrap();
+      localStorage.setItem("token", response.token);
+      window.location.href = "/";
+      console.log(response);
+    } catch (error) {
+      setIsError(error.response)
+    }
+
+  }
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
