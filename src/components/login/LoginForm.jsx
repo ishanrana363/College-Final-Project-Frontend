@@ -7,38 +7,36 @@ import { setUser } from "../../redux/feature/auth/authSlice";
 import Swal from "sweetalert2";
 
 const LoginForm = () => {
-  const [isErrors, setIsError] = useState('')
-  const [loginUser, { isLoading, isError, isSuccess }] = useLoginUserMutation();
-  const { register, handleSubmit, watch, formState: { errors } } = useForm();
-  const dispatch = useDispatch()
+  const [isErrors, setIsError] = useState('');
+  const [loginUser, { isLoading }] = useLoginUserMutation();
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const dispatch = useDispatch();
 
   const onSubmit = async (data) => {
     try {
       const response = await loginUser(data).unwrap();
-      console.log(response)
-      const { user} =response
+      const { user } = response;
       Swal.fire({
         title: `${response.msg}`,
         icon: 'success',
         showConfirmButton: false,
         timer: 1500
-      })
-      dispatch(setUser({user})) 
+      });
+      dispatch(setUser({ user }));
       window.location.href = "/";
-
     } catch (error) {
       console.log(error);
-      setIsError(error.response)
+      setIsError(error.response);
       Swal.fire({
         title: 'Error',
         text: `${error.data.message}`,
         icon: 'error',
         showConfirmButton: false,
         timer: 1500
-      })
+      });
     }
+  };
 
-  }
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
@@ -59,7 +57,7 @@ const LoginForm = () => {
               className="w-full px-4 py-2 mt-1 text-gray-900 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F9751D] focus:border-transparent"
             />
           </div>
-          {errors.email && <span className="text-[#F9751D] block mt-2 " >email required</span>}
+          {errors.email && <span className="text-[#F9751D] block mt-2">Email is required</span>}
           {/* Password Input */}
           <div>
             <label htmlFor="password" className="block text-sm font-medium text-gray-700">
@@ -72,21 +70,31 @@ const LoginForm = () => {
               placeholder="Enter your password"
               className="w-full px-4 py-2 mt-1 text-gray-900 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F9751D] focus:border-transparent"
             />
-            {errors.password && <span className="text-[#F9751D] block mt-2 " >password required</span>}
-
           </div>
+          {errors.password && <span className="text-[#F9751D] block mt-2">Password is required</span>}
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full px-4 py-2 text-black bg-[#F9751D] rounded-xl font-semibold focus:outline-none focus:ring-2 focus:ring-[#F9751D] focus:ring-offset-2"
+            disabled={isLoading}
+            className={`w-full px-4 py-2 rounded-xl font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 ${isLoading
+                ? "bg-gray-400 text-gray-700 cursor-not-allowed"
+                : "bg-[#F9751D] text-black focus:ring-[#F9751D]"
+              }`}
           >
-            Login
+            {isLoading ? (
+              <div className="flex items-center justify-center">
+                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                <span className="ml-2">Logging in...</span>
+              </div>
+            ) : (
+              "Login"
+            )}
           </button>
         </form>
         {/* Additional Options */}
         <div className="text-sm text-center text-gray-600">
           Don’t have an account?{" "}
-          <Link to={"/sign-up"} className=" text-[#F9751D] hover:underline">
+          <Link to={"/sign-up"} className="text-[#F9751D] hover:underline">
             Sign up
           </Link>
         </div>

@@ -22,10 +22,16 @@ let authApi = createApi({
                 body: payload,
             }),
         }),
+        logoutUser : builder.mutation({
+            query : ()=>({
+                url: `/logout`,
+                method: "POST",
+            })
+        })
     }),
 });
 
 // Corrected export statement
-export const { useRegisterUserMutation, useLoginUserMutation } = authApi;
+export const { useRegisterUserMutation, useLoginUserMutation, useLogoutUserMutation } = authApi;
 
 export default authApi;

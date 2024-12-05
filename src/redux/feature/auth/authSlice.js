@@ -34,6 +34,7 @@ export const authSlice = createSlice({
             state.user = null;
             localStorage.removeItem('user'); // Clear user and token from localStorage
         },
+        
     },
 });
 

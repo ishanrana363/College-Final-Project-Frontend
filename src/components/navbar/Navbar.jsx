@@ -2,6 +2,8 @@ import React, { useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 import { logout } from "../../redux/feature/auth/authSlice";
+import { useLogoutUserMutation } from "../../redux/feature/auth/authApi";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -34,9 +36,28 @@ const Navbar = () => {
   );
 
   const dispatch = useDispatch();
+  const [logoutUser] = useLogoutUserMutation();
 
-  const handleLogout = ()=>{
-    dispatch(logout());
+  const handleLogout = () => {
+    try {
+      dispatch(logout());
+      logoutUser().unwrap();
+      Swal.fire({
+        title: "Logged Out Successfully",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 1500
+      })
+      window.location.href = "/";
+    } catch (error) {
+      Swal.fire({
+        title: "Logout failed",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 1500
+      })
+      console.error(error)
+    }
   }
 
   return (
@@ -114,8 +135,8 @@ const Navbar = () => {
                       {/* Dropdown Menu */}
                       <div
                         className={`absolute right-0 top-16 z-50 w-40 bg-white shadow-lg py-2 rounded-md border transform transition-transform duration-300 ${isDropdownOpen
-                            ? "opacity-100 scale-100 translate-y-0"
-                            : "opacity-0 scale-95 -translate-y-2 pointer-events-none"
+                          ? "opacity-100 scale-100 translate-y-0"
+                          : "opacity-0 scale-95 -translate-y-2 pointer-events-none"
                           }`}
                         role="menu"
                         onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside the dropdown
