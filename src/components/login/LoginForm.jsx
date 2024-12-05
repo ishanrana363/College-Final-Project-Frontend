@@ -2,19 +2,40 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { useLoginUserMutation } from "../../redux/feature/auth/authApi";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../redux/feature/auth/authSlice";
+import Swal from "sweetalert2";
 
 const LoginForm = () => {
-  const [isErrors,setIsError] = useState('')
+  const [isErrors, setIsError] = useState('')
   const [loginUser, { isLoading, isError, isSuccess }] = useLoginUserMutation();
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
-  const onSubmit =  async (data) => {
+  const dispatch = useDispatch()
+
+  const onSubmit = async (data) => {
     try {
       const response = await loginUser(data).unwrap();
-      localStorage.setItem("token", response.token);
+      console.log(response)
+      const { user} =response
+      Swal.fire({
+        title: `${response.msg}`,
+        icon: 'success',
+        showConfirmButton: false,
+        timer: 1500
+      })
+      dispatch(setUser({user})) 
       window.location.href = "/";
-      console.log(response);
+
     } catch (error) {
+      console.log(error);
       setIsError(error.response)
+      Swal.fire({
+        title: 'Error',
+        text: `${error.data.message}`,
+        icon: 'error',
+        showConfirmButton: false,
+        timer: 1500
+      })
     }
 
   }
