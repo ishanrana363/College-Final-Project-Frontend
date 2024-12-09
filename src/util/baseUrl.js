@@ -1,3 +1,3 @@
-export const baseUrl= ()=>{
-    return "http://localhost:5000/api/v1"
+export const baseUrl = () => {
+    return "https://final-project-backend-steel.vercel.app/api/v1"
 }

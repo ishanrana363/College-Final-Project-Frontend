@@ -15,6 +15,8 @@ const LoginForm = () => {
   const onSubmit = async (data) => {
     try {
       const response = await loginUser(data).unwrap();
+      console.log(response.token);
+      
       const { user } = response;
       Swal.fire({
         title: `${response.msg}`,
@@ -23,6 +25,7 @@ const LoginForm = () => {
         timer: 1500
       });
       dispatch(setUser({ user }));
+      localStorage.setItem("token", response.token);
       window.location.href = "/";
     } catch (error) {
       console.log(error);
