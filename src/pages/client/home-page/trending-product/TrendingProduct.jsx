@@ -1,26 +1,15 @@
 import React, { useState } from 'react';
-import { products } from './../../../../components/data/product';
+import { useFetchAllProductsQuery } from '../../../../redux/feature/product/productApi';
 import ProductCard from './../../../../components/product-card/ProductCard';
 
 const TrendingProduct = () => {
     const [visibleProduct, setVisibleProduct] = useState(8); // Number of products to display
-    const [isLoading, setIsLoading] = useState(false); // Track loading animation
+    const { data: productData = {}, isLoading, isFetching } = useFetchAllProductsQuery();
+    const { products = [] } = productData?.data || {}; // Destructure safely in case of null or undefined data
 
     const handleMoreProduct = (event) => {
-        event.preventDefault(); // Prevent default scrolling behavior
-        setIsLoading(true); // Start loading animation
-
-        // Optionally, set a timeout to simulate loading
-        setTimeout(() => {
-            setVisibleProduct((prevState) => prevState + 8); // Load 8 more products
-            setIsLoading(false); // Stop loading animation after 3 seconds
-        }, 1000); // 3 seconds delay
-
-        // Keep the page at its current scroll position
-        window.scrollTo({
-            top: window.pageYOffset, // Keep the scroll position the same
-            behavior: "smooth" // Smooth scroll behavior
-        });
+        event.preventDefault();
+        setVisibleProduct((prevState) => prevState + 8); // Load 8 more products
     };
 
     return (
@@ -38,6 +27,7 @@ const TrendingProduct = () => {
 
             {/* Product List Section */}
             <div className="mt-6">
+                {/* Render Product Cards */}
                 <ProductCard product={products.slice(0, visibleProduct)} />
             </div>
 
@@ -48,9 +38,9 @@ const TrendingProduct = () => {
                         type="button"
                         onClick={handleMoreProduct}
                         className="lg:text-lg text-white py-3 px-10 rounded-md bg-yellow-500 hover:bg-yellow-600 disabled:opacity-50"
-                        disabled={isLoading} // Disable button during loading
+                        disabled={isFetching || isLoading} // Disable button during loading or fetching
                     >
-                        {isLoading ? (
+                        {isFetching || isLoading ? (
                             <div className="flex items-center justify-center">
                                 {/* Spinner Animation */}
                                 <svg

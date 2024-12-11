@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useFetchAllProductsQuery } from '../../../redux/feature/product/productApi';
 import ProductCard from './../../../components/product-card/ProductCard';
 import FilterProducts from '../../../components/FilterProducts';
+import Spinner from '../../../components/loading-spinner/Spinner';
 
 const filter = {
     categories: ["all", "Accessories", "dresses", "jewellery", "cosmetics"],
@@ -43,11 +44,11 @@ const Shop = () => {
     };
 
     const clearFilter = () => {
-        setFilterState({...filterState, category: 'all', color: 'all', priceRange: '' });
+        setFilterState({ ...filterState, category: 'all', color: 'all', priceRange: '' });
     };
 
     if (isLoading) {
-        return <p>Loading...</p>;
+        return <> <Spinner></Spinner> </>;
     }
 
     const { products, totalPages, totalProducts } = productData?.data || {};
@@ -71,7 +72,7 @@ const Shop = () => {
             <div className="flex flex-col lg:flex-row lg:gap-10 gap-7">
                 <div className="bg-white  p-5  w-full lg:w-1/4">
                     <h2 className="text-lg font-bold mb-4">Categories</h2>
-                    <FilterProducts filter = {filter} filterState = {filterState} filterClear = {clearFilter}  settFilterState = {setFilterState} >
+                    <FilterProducts filter={filter} filterState={filterState} filterClear={clearFilter} settFilterState={setFilterState} >
 
                     </FilterProducts>
                 </div>
@@ -79,38 +80,48 @@ const Shop = () => {
                 <div className="my-7 w-full">
                     <h1 className="text-lg font-bold mb-5">Products</h1>
                     <div>
-                         <ProductCard product={products} />
-                        
+                        {
+                            products.length > 0 ? (<ProductCard product={products} />) : (
+                                <div>
+                                    <p className='font-semibold text-lg ' >Product Not Found</p>
+                                </div>
+                            )
+                        }
 
-                        <div className="flex justify-center gap-4 mt-5">
-                            <button
-                                onClick={() => handlePageChange(currentPage - 1)}
-                                disabled={currentPage === 1}
-                                className={`border px-3 py-1 ${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : 'bg-[#FA7B2D] shadow-md rounded-md'}`}
-                            >
-                                Prev
-                            </button>
 
-                            <span>
-                                {Array.from({ length: totalPages }, (_, index) => (
+                        {
+                            products.length > 0 && (
+                                <div className="flex justify-center gap-4 mt-5">
                                     <button
-                                        key={index + 1}
-                                        className={`px-2 py-1 ${currentPage === index + 1 ? 'bg-blue-500 rounded-md' : ''}`}
-                                        onClick={() => handlePageChange(index + 1)}
+                                        onClick={() => handlePageChange(currentPage - 1)}
+                                        disabled={currentPage === 1}
+                                        className={`border px-3 py-1 ${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : 'bg-[#FA7B2D] shadow-md rounded-md'}`}
                                     >
-                                        {index + 1}
+                                        Prev
                                     </button>
-                                ))}
-                            </span>
 
-                            <button
-                                onClick={() => handlePageChange(currentPage + 1)}
-                                disabled={currentPage === totalPages}
-                                className={`border px-3 py-1 ${currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : 'bg-[#FA7B2D] shadow-md rounded-md'}`}
-                            >
-                                Next
-                            </button>
-                        </div>
+                                    <span>
+                                        {Array.from({ length: totalPages }, (_, index) => (
+                                            <button
+                                                key={index + 1}
+                                                className={`px-2 py-1 ${currentPage === index + 1 ? 'bg-blue-500 rounded-md' : ''}`}
+                                                onClick={() => handlePageChange(index + 1)}
+                                            >
+                                                {index + 1}
+                                            </button>
+                                        ))}
+                                    </span>
+
+                                    <button
+                                        onClick={() => handlePageChange(currentPage + 1)}
+                                        disabled={currentPage === totalPages}
+                                        className={`border px-3 py-1 ${currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : 'bg-[#FA7B2D] shadow-md rounded-md'}`}
+                                    >
+                                        Next
+                                    </button>
+                                </div>
+                            )
+                        }
                     </div>
                 </div>
             </div>

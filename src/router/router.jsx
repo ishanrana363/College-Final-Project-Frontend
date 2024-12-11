@@ -5,6 +5,7 @@ import CategoryProduct from "../pages/client/categoy-product-page/CategoryProduc
 import LoginForm from "../components/login/LoginForm";
 import SignUpForm from "../components/registration/SignUpForm";
 import Shop from "../pages/client/shop-page/Shop";
+import SingleProduct from "../pages/client/single-product/SingleProduct";
 
 
 export const router = createBrowserRouter([
@@ -23,6 +24,10 @@ export const router = createBrowserRouter([
             {
                 path : "shop",
                 element : <Shop></Shop>
+            },
+            {
+                path : "product-details/:id",
+                element : <SingleProduct></SingleProduct>
             }
         ]
     },
