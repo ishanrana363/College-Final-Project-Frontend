@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useFetchAllProductsQuery } from '../../../redux/feature/product/productApi';
 import ProductCard from './../../../components/product-card/ProductCard';
+import FilterProducts from '../../../components/FilterProducts';
 
 const filter = {
-    categories: ["all", "accessories", "dresses", "jewellery", "cosmetics"],
+    categories: ["all", "Accessories", "dresses", "jewellery", "cosmetics"],
     colors: ["all", "black", "red", "gold", "blue", "silver", "beige", "green"],
     priceRanges: [
         { label: "Under $50", min: 0, max: 50 },
@@ -70,9 +71,9 @@ const Shop = () => {
             <div className="flex flex-col lg:flex-row lg:gap-10 gap-7">
                 <div className="bg-white  p-5  w-full lg:w-1/4">
                     <h2 className="text-lg font-bold mb-4">Categories</h2>
-                    <ul className="space-y-2">
-                        
-                    </ul>
+                    <FilterProducts filter = {filter} filterState = {filterState} filterClear = {clearFilter}  settFilterState = {setFilterState} >
+
+                    </FilterProducts>
                 </div>
 
                 <div className="my-7 w-full">
