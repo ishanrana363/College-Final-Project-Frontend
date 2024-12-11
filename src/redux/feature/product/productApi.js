@@ -10,13 +10,20 @@ const productApi = createApi({
     tagTypes: ["Products"], // Fixed: Should be an array
     endpoints: (builder) => ({
         fetchAllProducts: builder.query({
-            query: ({ category, color, minPrice, maxPrice, page = 1, limit = 10 }) => {
+            query: ({
+                category = "",
+                color = "",
+                minPrice = 0,
+                maxPrice = 0,
+                page = 1,
+                limit = 10,
+            } = {}) => { // Default empty object
                 const queryParams = new URLSearchParams();
 
                 if (category) queryParams.append("category", category);
                 if (color) queryParams.append("color", color);
-                if (minPrice !== undefined) queryParams.append("minPrice", minPrice.toString());
-                if (maxPrice !== undefined) queryParams.append("maxPrice", maxPrice.toString());
+                if (minPrice) queryParams.append("minPrice", minPrice.toString());
+                if (maxPrice) queryParams.append("maxPrice", maxPrice.toString());
                 queryParams.append("page", page.toString());
                 queryParams.append("limit", limit.toString());
 

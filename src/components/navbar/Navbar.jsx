@@ -79,17 +79,42 @@ const Navbar = () => {
           <div>
             <nav>
               <ul className="flex gap-8 items-center text-lg font-bold">
-                {["Home", "Shop", "Pages", "Contact"].map((item, index) => (
-                  <li key={index}>
-                    <NavLink
-                      to={`/${item.toLowerCase()}`}
-                      className="relative group transition-all duration-300"
-                    >
-                      {item}
-                      <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-full"></span>
-                    </NavLink>
-                  </li>
-                ))}
+                <li>
+                  <NavLink
+                    to="/"
+                    className="relative group transition-all duration-300"
+                  >
+                    Home
+                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-full"></span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/shop"
+                    className="relative group transition-all duration-300"
+                  >
+                    Shop
+                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-full"></span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/pages"
+                    className="relative group transition-all duration-300"
+                  >
+                    Pages
+                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-full"></span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/contact"
+                    className="relative group transition-all duration-300"
+                  >
+                    Contact
+                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-full"></span>
+                  </NavLink>
+                </li>
               </ul>
             </nav>
           </div>
