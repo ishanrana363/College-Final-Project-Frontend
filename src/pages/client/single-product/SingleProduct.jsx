@@ -1,8 +1,8 @@
-import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useFetchProductIdQuery } from '../../../redux/feature/product/productApi';
 import Spinner from './../../../components/loading-spinner/Spinner';
 import ProductRating from '../../../components/product-rating/ProductRating';
+import ReviewCard from '../../../components/review/ReviewCard';
 
 const SingleProduct = () => {
   window.scrollTo(0, 0);
@@ -14,7 +14,8 @@ const SingleProduct = () => {
   if (isError) return <p className="text-center text-red-500">Failed to load product details.</p>;
 
   const { data } = productData;
-  const { product } = data;
+  const { product,reviews } = data;
+  console.log(reviews);
 
   return (
     <div className='w-11/12 mx-auto ' >
@@ -89,8 +90,7 @@ const SingleProduct = () => {
       {/* Reviews */}
       <section className="bg-gray-50 py-8">
         <div className="container mx-auto px-4">
-          <h3 className="text-2xl font-semibold text-gray-800 mb-4">Customer Reviews</h3>
-          <p className="text-gray-600">No reviews yet. Be the first to review this product!</p>
+          <ReviewCard productReviews = {reviews} ></ReviewCard>
         </div>
       </section>
     </div>
