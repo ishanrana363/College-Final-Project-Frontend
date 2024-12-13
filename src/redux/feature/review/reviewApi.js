@@ -4,6 +4,7 @@ import { baseUrl } from './../../../util/baseUrl';
 const reviewApi = createApi({
     reducerPath: "reviewApi",
     baseQuery: fetchBaseQuery({ baseUrl: baseUrl() }),
+    credentials: 'include', 
     tagTypes: ["reviews"],
     endpoints: (builder) => ({
         postReview: builder.mutation({

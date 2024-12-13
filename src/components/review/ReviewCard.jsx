@@ -64,7 +64,7 @@ const ReviewCard = ({ productReviews }) => {
             <div className='mt-12'>
                 <button
                     onClick={handleOpenReviewModal}
-                    className="px-6 py-3 bg-primary text-white rounded-md flex items-center gap-2"
+                    className="px-6 py-3 bg-[#FA7B2D] text-white rounded-md flex items-center gap-2"
                 >
                     <i className="ri-pencil-line mr-2"></i> Add A Comment
                 </button>

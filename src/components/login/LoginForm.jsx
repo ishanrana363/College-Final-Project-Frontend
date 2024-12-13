@@ -24,8 +24,8 @@ const LoginForm = () => {
         showConfirmButton: false,
         timer: 1500
       });
-      dispatch(setUser({ user }));
       localStorage.setItem("token", response.token);
+      dispatch(setUser({ user }));
       window.location.href = "/";
     } catch (error) {
       console.log(error);

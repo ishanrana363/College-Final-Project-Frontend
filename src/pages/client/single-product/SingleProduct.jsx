@@ -3,29 +3,41 @@ import { useFetchProductIdQuery } from '../../../redux/feature/product/productAp
 import Spinner from './../../../components/loading-spinner/Spinner';
 import ProductRating from '../../../components/product-rating/ProductRating';
 import ReviewCard from '../../../components/review/ReviewCard';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../../redux/feature/cart/cartSlice';
 
 const SingleProduct = () => {
+  const dispatch = useDispatch();
+
+  const handleProduct = (product) => {
+    dispatch(addToCart(product));
+  };
+
   window.scrollTo(0, 0);
   const { id } = useParams();
   const { data: productData, isLoading, isError } = useFetchProductIdQuery(id);
 
   if (isLoading) return <Spinner />;
-
   if (isError) return <p className="text-center text-red-500">Failed to load product details.</p>;
 
   const { data } = productData;
-  const { product,reviews } = data;
-  console.log(reviews);
+  const { product, reviews } = data;
+
+
+
+
+  
+
 
   return (
-    <div className='w-11/12 mx-auto ' >
+    <div className="w-11/12 mx-auto">
       {/* Banner */}
-      <section className=" max-w-4xl  mx-auto my-5 h-[50vh] bg-[#FA7B2D] ">
-        <div className=" flex flex-col pt-24 items-center mx-auto px-4">
+      <section className="max-w-4xl mx-auto my-5 h-[50vh] bg-[#FA7B2D]">
+        <div className="flex flex-col pt-24 items-center mx-auto px-4">
           <div>
-            <h2 className="text-3xl font-bold ">Single Product Page</h2>
+            <h2 className="text-3xl font-bold">Single Product Page</h2>
           </div>
-          <div className="flex items-center  mt-2 space-x-2">
+          <div className="flex items-center mt-2 space-x-2">
             <Link to="/" className="hover:text-primary">Home</Link>
             <i className="ri-arrow-right-s-line"></i>
             <Link to="/shop" className="hover:text-primary">Shop</Link>
@@ -39,11 +51,11 @@ const SingleProduct = () => {
       <section className="container mx-auto px-4 py-8">
         <div className="flex flex-col md:flex-row gap-8">
           {/* Product Image */}
-          <div className="  md:w-1/2">
+          <div className="md:w-1/2">
             <img
               src={product?.image}
               alt={product?.name}
-              className="rounded-lg shadow-lg w-[90%] h-auto "
+              className="rounded-lg shadow-lg w-[90%] h-auto"
             />
           </div>
 
@@ -78,6 +90,8 @@ const SingleProduct = () => {
 
             {/* Add to Cart Button */}
             <button
+            onClick={()=>handleProduct(product)}
+
               type="button"
               className="mt-6 px-6 py-3 bg-yellow-500 hover:bg-yellow-600 text-white font-medium rounded-lg shadow-md transition duration-300"
             >
@@ -90,7 +104,7 @@ const SingleProduct = () => {
       {/* Reviews */}
       <section className="bg-gray-50 py-8">
         <div className="container mx-auto px-4">
-          <ReviewCard productReviews = {reviews} ></ReviewCard>
+          <ReviewCard productReviews={reviews}></ReviewCard>
         </div>
       </section>
     </div>

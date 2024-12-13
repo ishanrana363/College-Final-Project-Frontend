@@ -9,6 +9,8 @@ const Navbar = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [isSearchFormOpen, setSearchFormOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const products = useSelector((state) => state.cart.products);
+  console.log(products)
 
   const toggleSidebar = () => setSidebarOpen(!isSidebarOpen);
   const toggleSearchForm = () => setSearchFormOpen(!isSearchFormOpen);
@@ -136,7 +138,12 @@ const Navbar = () => {
 
                 {/* Cart Icon */}
                 <li>
-                  <button onClick={toggleSidebar} aria-label="Cart">
+                  <button className="flex  " onClick={toggleSidebar} aria-label="Cart">
+                    <p className="-mt-4  font-bold  " >
+                      {
+                        products.length
+                      }
+                    </p>
                     <img
                       className="w-6 hover:opacity-80 transition-opacity duration-300"
                       src="https://res.cloudinary.com/dj2edy2rg/image/upload/v1732979093/add-card_yhxgks.png"
@@ -223,6 +230,7 @@ const Navbar = () => {
         <div
           className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50"
           onClick={toggleSidebar}
+          
         ></div>
       )}
 

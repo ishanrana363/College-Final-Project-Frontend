@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom'
 
 // eslint-disable-next-line react/prop-types
 const ProductCard = ({ product }) => {
+    
+    
     return (
         <div>
             <div className="w-11/12 mx-auto">
@@ -25,7 +27,7 @@ const ProductCard = ({ product }) => {
                                             alt={item.name}
                                         />
                                         <div className="absolute top-2 right-2">
-                                            <button className="bg-red-500 p-2 rounded-full">
+                                            <button  className="bg-red-500 p-2 rounded-full">
                                                 <FaShoppingCart className="text-white w-5 h-5" />
                                             </button>
                                         </div>

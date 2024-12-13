@@ -2,6 +2,8 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import { HelmetProvider } from 'react-helmet-async'
 import { RouterProvider } from 'react-router-dom'
+import 'remixicon/fonts/remixicon.css';
+
 import {
   QueryClient,
   QueryClientProvider,
