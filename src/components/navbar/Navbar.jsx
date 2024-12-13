@@ -4,6 +4,7 @@ import { Link, NavLink } from "react-router-dom";
 import { logout } from "../../redux/feature/auth/authSlice";
 import { useLogoutUserMutation } from "../../redux/feature/auth/authApi";
 import Swal from "sweetalert2";
+import CartModal from "../cart-modal/CartModal";
 
 const Navbar = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -207,7 +208,7 @@ const Navbar = () => {
 
       {/* Sidebar */}
       <div
-        className={`fixed z-50 top-0 right-0 h-full w-72 bg-white shadow-lg transform transition-transform duration-300 ${isSidebarOpen ? "translate-x-0" : "translate-x-full"
+        className={`fixed z-50 top-0 right-0 h-full w-1/2 bg-white shadow-lg transform transition-transform duration-300 ${isSidebarOpen ? "translate-x-0" : "translate-x-full"
           }`}
       >
         <div className="p-4 flex justify-between items-center">
@@ -221,16 +222,15 @@ const Navbar = () => {
           </button>
         </div>
         <div className="p-4">
-          <p>Your cart is currently empty.</p>
+          <CartModal products={products} ></CartModal>
         </div>
       </div>
 
       {/* Overlay */}
       {isSidebarOpen && (
         <div
-          className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50"
+          className="fixed top-0 left-0  h-full bg-black bg-opacity-50"
           onClick={toggleSidebar}
-          
         ></div>
       )}
 
