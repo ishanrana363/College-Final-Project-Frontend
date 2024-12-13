@@ -12,6 +12,8 @@ const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const products = useSelector((state) => state.cart.products);
   console.log(products)
+  console.log(products)
+  console.log(products)
 
   const toggleSidebar = () => setSidebarOpen(!isSidebarOpen);
   const toggleSearchForm = () => setSearchFormOpen(!isSearchFormOpen);
@@ -142,7 +144,7 @@ const Navbar = () => {
                   <button className="flex  " onClick={toggleSidebar} aria-label="Cart">
                     <p className="-mt-4  font-bold  " >
                       {
-                        products.length
+                        products?.length
                       }
                     </p>
                     <img
@@ -208,7 +210,7 @@ const Navbar = () => {
 
       {/* Sidebar */}
       <div
-        className={`fixed z-50 top-0 right-0 h-full w-1/2 bg-white shadow-lg transform transition-transform duration-300 ${isSidebarOpen ? "translate-x-0" : "translate-x-full"
+        className={`fixed z-50 top-0 right-0 h-full w-1/3 bg-white shadow-lg transform transition-transform duration-300 ${isSidebarOpen ? "translate-x-0" : "translate-x-full"
           }`}
       >
         <div className="p-4 flex justify-between items-center">
