@@ -6,6 +6,7 @@ import LoginForm from "../components/login/LoginForm";
 import SignUpForm from "../components/registration/SignUpForm";
 import Shop from "../pages/client/shop-page/Shop";
 import SingleProduct from "../pages/client/single-product/SingleProduct";
+import PaymentSuccess from "../components/payment/PaymentSuccess";
 
 
 export const router = createBrowserRouter([
@@ -38,5 +39,9 @@ export const router = createBrowserRouter([
     {
         path :"/sign-up",
         element : <SignUpForm></SignUpForm>
+    },
+    {
+        path : "/success",
+        element : <PaymentSuccess></PaymentSuccess>
     }
 ])
