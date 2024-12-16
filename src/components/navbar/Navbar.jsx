@@ -11,9 +11,7 @@ const Navbar = () => {
   const [isSearchFormOpen, setSearchFormOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const products = useSelector((state) => state.cart.products);
-  console.log(products)
-  console.log(products)
-  console.log(products)
+
 
   const toggleSidebar = () => setSidebarOpen(!isSidebarOpen);
   const toggleSearchForm = () => setSearchFormOpen(!isSearchFormOpen);
