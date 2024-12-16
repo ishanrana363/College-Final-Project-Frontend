@@ -20,7 +20,7 @@ const Navbar = () => {
   const { user } = useSelector((state) => state.auth);
 
   const adminDropdown = [
-    { label: "Dashboard", path: "/dashboard/admin" },
+    { label: "Dashboard", path: "/dashboard" },
     { label: "Manage Items", path: "/dashboard/manage-items" },
     { label: "All Orders", path: "/dashboard/all-orders" },
     { label: "Add Products", path: "/dashboard/add-products" },

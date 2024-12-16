@@ -11,37 +11,54 @@ import PaymentSuccess from "../components/payment/PaymentSuccess";
 
 export const router = createBrowserRouter([
     {
-        path : "/",
-        element : <Layout></Layout>,
-        children : [
+        path: "/",
+        element: <Layout></Layout>,
+        children: [
             {
-                path : "/",
-                element : <HomePage></HomePage>
+                path: "/",
+                element: <HomePage></HomePage>
             },
             {
-                path : "categories/:categoryName",
-                element : <CategoryProduct></CategoryProduct>
+                path: "categories/:categoryName",
+                element: <CategoryProduct></CategoryProduct>
             },
             {
-                path : "shop",
-                element : <Shop></Shop>
+                path: "shop",
+                element: <Shop></Shop>
             },
             {
-                path : "product-details/:id",
-                element : <SingleProduct></SingleProduct>
+                path: "product-details/:id",
+                element: <SingleProduct></SingleProduct>
+            },
+            {
+                path: "/success",
+                element: <PaymentSuccess></PaymentSuccess>
             }
         ]
     },
     {
-        path : "/login",
-        element : <LoginForm></LoginForm>
+        path: "/login",
+        element: <LoginForm></LoginForm>
     },
     {
-        path :"/sign-up",
-        element : <SignUpForm></SignUpForm>
+        path: "/sign-up",
+        element: <SignUpForm></SignUpForm>
     },
     {
-        path : "/success",
-        element : <PaymentSuccess></PaymentSuccess>
-    }
+        path : "/dashboard/",
+        element : <div>Dahsboard</div>,
+        children : [
+            // admin routs start
+            {
+                path : "manage-items",
+                element : <div>Manage Items</div>
+            },
+            {
+                path : "all-orders",
+                element : <div>All orders</div>
+            }
+        ]
+    },
+    
+
 ])
