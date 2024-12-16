@@ -12,6 +12,14 @@ import ManageItem from "../pages/admin/manage-item-page/ManageItem";
 import AllOrder from "../pages/admin/all-order-page/AllOrder";
 import AddProduct from "../pages/admin/add-product-page/AddProduct";
 import DashboardHome from "../pages/admin/dashboard-home-page/DashboardHome";
+import Profile from "../pages/client/profile-page/Profile";
+import Payment from "../pages/client/payment-page/Payment";
+import Order from "../pages/client/order-page/Order";
+import UserMain from "../pages/client/user-main-page/UserMain";
+import PrivateRoute from './PrivateRoute';
+import AdminMain from "../pages/admin/admin-main-page/AdminMain";
+import AllUsers from "../pages/admin/all-users-page/AllUsers";
+import AdminHome from "../pages/admin/admin-home-page/AdminHome";
 
 
 export const router = createBrowserRouter([
@@ -50,28 +58,52 @@ export const router = createBrowserRouter([
         element: <SignUpForm></SignUpForm>
     },
     {
-        path : "/dashboard/",
-        element : <DashboardLayout/>,
-        children : [
+        path: "/dashboard",
+        element: <DashboardLayout />,
+        children: [
+            // user routes start
+            {
+                path:"",
+                element : <UserMain/>,
+            },
+            {
+                path: "profile",
+                element: <Profile></Profile>
+            },
+            {
+                path: "payments",
+                element: <Payment></Payment>
+            },
+            {
+                path: "orders",
+                element: <Order></Order>
+            },
             // admin routs start
             {
-                path : "",
-                element: <DashboardHome></DashboardHome>
+                path: "admin",
+                element: <PrivateRoute role={"admin"} > <AdminHome/> </PrivateRoute>
             },
             {
-                path : "manage-items",
-                element : <ManageItem></ManageItem>
+                path: "manage-items",
+                element: <PrivateRoute role={"admin"} > <ManageItem></ManageItem> </PrivateRoute>
             },
             {
-                path : "all-orders",
-                element : <AllOrder></AllOrder>
+                path: "all-orders",
+                element: <PrivateRoute role={"admin"} ><AllOrder></AllOrder></PrivateRoute>
+            },
+            // admin routes end
+            {
+                path: "add-products",
+                element: <PrivateRoute role={"admin"} ><AddProduct></AddProduct></PrivateRoute>
             },
             {
-                path : "add-products",
-                element : <AddProduct></AddProduct>
-            }
+                path: "users",
+                element: <PrivateRoute role={"admin"} > <AllUsers></AllUsers> </PrivateRoute>
+            },
+
+
         ]
     },
-    
+
 
 ])

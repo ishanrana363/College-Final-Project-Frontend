@@ -1,16 +1,36 @@
-import React from 'react'
-import { useSelector } from 'react-redux';
-import { Navigate, Outlet } from 'react-router-dom';
+import { useSelector } from 'react-redux'
+import { Navigate, Outlet } from 'react-router-dom'
+import UserMain from './../pages/client/user-main-page/UserMain';
+import AdminMain from '../pages/admin/admin-main-page/AdminMain';
 
 const DashboardLayout = () => {
   const { user } = useSelector((state) => state.auth);
-  if(!user){
-    return <Navigate to={"/login"} replace />
+
+  if (!user) {
+    alert("You must be logged in");
+    return <Navigate to="/login" replace />
+  }
+  const renderDashboard = () => {
+    switch (user?.role) {
+      case 'admin':
+        return <AdminMain />
+      case 'user':
+        return <UserMain />
+
+      default:
+        return <Navigate to="/login" replace />
+    }
   }
   return (
-    <div>
-      <h1>Dashboard</h1>
-      <Outlet />
+    <div className='container mx-auto flex flex-col md:flex-row gap-4 items-start justify-start'>
+      <header className='lg:w-1/5 sm:w-2/5 w-full border mt-5'>
+        {
+          renderDashboard()
+        }
+      </header>
+      <main className='p-8 bg-white w-full border mt-5'>
+        <Outlet />
+      </main>
     </div>
   )
 }
