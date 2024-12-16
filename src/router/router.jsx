@@ -7,6 +7,11 @@ import SignUpForm from "../components/registration/SignUpForm";
 import Shop from "../pages/client/shop-page/Shop";
 import SingleProduct from "../pages/client/single-product/SingleProduct";
 import PaymentSuccess from "../components/payment/PaymentSuccess";
+import DashboardLayout from "../dashboard-layout/DashboardLayout";
+import ManageItem from "../pages/admin/manage-item-page/ManageItem";
+import AllOrder from "../pages/admin/all-order-page/AllOrder";
+import AddProduct from "../pages/admin/add-product-page/AddProduct";
+import DashboardHome from "../pages/admin/dashboard-home-page/DashboardHome";
 
 
 export const router = createBrowserRouter([
@@ -46,16 +51,24 @@ export const router = createBrowserRouter([
     },
     {
         path : "/dashboard/",
-        element : <div>Dahsboard</div>,
+        element : <DashboardLayout/>,
         children : [
             // admin routs start
             {
+                path : "",
+                element: <DashboardHome></DashboardHome>
+            },
+            {
                 path : "manage-items",
-                element : <div>Manage Items</div>
+                element : <ManageItem></ManageItem>
             },
             {
                 path : "all-orders",
-                element : <div>All orders</div>
+                element : <AllOrder></AllOrder>
+            },
+            {
+                path : "add-products",
+                element : <AddProduct></AddProduct>
             }
         ]
     },
