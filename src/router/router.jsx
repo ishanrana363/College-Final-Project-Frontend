@@ -21,6 +21,7 @@ import AdminMain from "../pages/admin/admin-main-page/AdminMain";
 import AllUsers from "../pages/admin/all-users-page/AllUsers";
 import AdminHome from "../pages/admin/admin-home-page/AdminHome";
 import UserDashboard from './../pages/client/user-dashboard/UserDashboard';
+import OrderDetails from "../pages/client/order-page/OrderDetails";
 
 
 export const router = createBrowserRouter([
@@ -47,6 +48,10 @@ export const router = createBrowserRouter([
             {
                 path: "/success",
                 element: <PaymentSuccess></PaymentSuccess>
+            },
+            {
+                path:"/order-details/:id",
+                element : <OrderDetails></OrderDetails>
             }
         ]
     },
