@@ -39,7 +39,6 @@ const PostAReview = ({ isModalOpen, handleClose }) => {
     e.preventDefault();
 
     if (!user) {
-      alert('You must be logged in to post a review.');
       navigate('/login');
       return;
     }
