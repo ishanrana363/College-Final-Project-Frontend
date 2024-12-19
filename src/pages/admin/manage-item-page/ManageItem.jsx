@@ -6,6 +6,8 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Spinner from "../../../components/loading-spinner/Spinner";
 import { baseUrl } from "../../../util/baseUrl";
+import { deleteAlert } from "../../../helper/deleteAlert";
+import Swal from "sweetalert2";
 
 const ManageItem = () => {
   const [search, setSearch] = useState("");
@@ -18,13 +20,15 @@ const ManageItem = () => {
     },
   };
 
-  const { data: products = [], isLoading } = useQuery({
+  const { data: products = [], isLoading, refetch } = useQuery({
     queryKey: ["products"],
     queryFn: async () => {
       const res = await axios.get(`${baseUrl()}/all-product`, config);
       return res.data.data;
     },
   });
+
+
 
   if (isLoading) {
     return (
@@ -42,6 +46,38 @@ const ManageItem = () => {
   const clearSearch = () => {
     setSearch("");
     setFilterField("name");
+  };
+
+
+  const deleteProduct = async (id) => {
+
+    try {
+      let resp = await deleteAlert();
+      if (resp.isConfirmed) {
+        let res = await axios.delete(`${baseUrl()}/product-delete/${id}`, config);
+        if (res) {
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your product has been deleted.",
+            icon: "success"
+          })
+
+          refetch();
+
+        }
+      }
+    } catch (error) {
+      
+      Swal.fire({
+        title: "Delete failed",
+        icon: "error",
+        showConfirmButton: false,
+        timer: 1500
+      })
+      console.error(error)
+
+    }
+
   };
 
   return (
@@ -125,10 +161,13 @@ const ManageItem = () => {
                 </Link>
               </td>
               <td className="px-4 py-2 flex items-center space-x-2">
-                <button className="text-blue-500 hover:text-blue-700 block mt-4">
-                  <FaEdit />
-                </button>
-                <button className="text-red-500 hover:text-red-700 mt-4">
+                <Link
+                  to={`/dashboard/product-update/${product?._id}`}                >
+                  <button className="text-blue-500 hover:text-blue-700 block mt-4">
+                    <FaEdit />
+                  </button>
+                </Link>
+                <button onClick={() => deleteProduct(product?._id)} className="text-red-500 hover:text-red-700 mt-4">
                   <FaTrash />
                 </button>
               </td>

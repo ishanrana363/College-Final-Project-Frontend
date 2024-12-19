@@ -22,6 +22,7 @@ import AllUsers from "../pages/admin/all-users-page/AllUsers";
 import AdminHome from "../pages/admin/admin-home-page/AdminHome";
 import UserDashboard from './../pages/client/user-dashboard/UserDashboard';
 import OrderDetails from "../pages/client/order-page/OrderDetails";
+import ProductUpdate from "../pages/admin/manage-item-page/ProductUpdate";
 
 
 export const router = createBrowserRouter([
@@ -106,6 +107,10 @@ export const router = createBrowserRouter([
                 path: "users",
                 element: <PrivateRoute role={"admin"} > <AllUsers></AllUsers> </PrivateRoute>
             },
+            {
+                path: "product-update/:id",
+                element: <PrivateRoute role={"admin"} > <ProductUpdate></ProductUpdate> </PrivateRoute>
+            }
 
 
         ]

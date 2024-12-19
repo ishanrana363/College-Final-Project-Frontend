@@ -26,7 +26,7 @@ const AddProduct = () => {
 
     let imgUrl = ""
 
-    if(!image?.name){
+    if (!image?.name) {
       imgUrl = ""
     }
     imgUrl = await uploadImg(image);
@@ -43,14 +43,14 @@ const AddProduct = () => {
 
     try {
       const resp = await createAlert();
-      if(resp.isConfirmed){
+      if (resp.isConfirmed) {
         setIsLoading(true);
-        let res = await axios.post(`${baseUrl()}/create-product`,payload,config);
+        let res = await axios.post(`${baseUrl()}/create-product`, payload, config);
         setIsLoading(false);
-        if(res){
+        if (res) {
           Swal.fire({
             title: 'Product added successfully!',
-            icon:'success',
+            icon: 'success',
             confirmButtonText: 'Close',
           })
           e.target.reset();
@@ -58,6 +58,7 @@ const AddProduct = () => {
         }
       }
     } catch (error) {
+      setIsLoading(false);
       console.error(error);
       Swal.fire({
         title: 'Error',
@@ -123,7 +124,7 @@ const AddProduct = () => {
           <div className="">
             <label htmlFor="price" className="block text-sm font-medium text-gray-700">Price</label>
             <input
-              type="number"
+              type="text"
               id="price"
               name="price"
 
@@ -136,7 +137,7 @@ const AddProduct = () => {
           <div className="">
             <label htmlFor="oldPrice" className="block text-sm font-medium text-gray-700">Old Price</label>
             <input
-              type="number"
+              type="text"
               id="oldPrice"
               name="oldPrice"
               required
@@ -175,9 +176,37 @@ const AddProduct = () => {
         <div className="flex justify-center">
           <button
             type="submit"
-            className="bg-indigo-600 mt-10 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            disabled={loading} // Disable button when loading
+            className={`w-1/6 mt-4 bg-blue-500 text-white font-medium py-2 rounded ${loading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-600"
+              } focus:outline-none focus:ring focus:ring-blue-300`}
           >
-            Submit Product
+            {loading ? (
+              <div className="flex justify-center items-center">
+                <svg
+                  className="animate-spin h-5 w-5 mr-2 text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  ></circle>
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8v8H4z"
+                  ></path>
+                </svg>
+                Processing...
+              </div>
+            ) : (
+              "Submit"
+            )}
           </button>
         </div>
       </form>
