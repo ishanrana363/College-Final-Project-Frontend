@@ -5,6 +5,8 @@ import { IoClose } from 'react-icons/io5';
 import { baseUrl } from '../../../util/baseUrl';
 import axios from 'axios';
 import { updateAlert } from '../../../helper/loginAlert';
+import { deleteAlert } from '../../../helper/deleteAlert';
+import Swal from 'sweetalert2';
 
 const AllOrder = () => {
   const [selectedOrder, setSelectedOrder] = useState(null);
@@ -47,10 +49,27 @@ const AllOrder = () => {
 
   const handleDelete = async (orderId) => {
     try {
-      await axios.delete(`${baseUrl()}/order/delete/${orderId}`, config);
-      refetch(); // Refetch to ensure the data is updated after deletion
+      let resp = await deleteAlert();
+      if(resp.isConfirmed){
+        let res = await axios.delete(`${baseUrl()}/order-delete/${orderId}`,config);
+        if(res){
+          Swal.fire({
+            title: 'Order deleted successfully!',
+            icon:'success',
+            confirmButtonText: 'Close',
+          });
+          refetch(); // Refetch to ensure the data is updated
+        }
+      }
     } catch (error) {
-      console.error('Failed to delete order:', error);
+      Swal.fire({
+        title: 'Error',
+        text: 'Failed to delete order',
+        icon: 'error',
+        confirmButtonText: 'Close',
+      });
+      refetch(); // Refetch to ensure the data is updated
+      console.log(error);
     }
   };
 
@@ -75,12 +94,14 @@ const AllOrder = () => {
     }
   };
 
+
+
   return (
     <div className="">
       <h1 className="text-3xl font-bold text-center mb-5">Orders</h1>
 
       <div className="bg-white shadow-md rounded-lg overflow-hidden">
-        <table className="table-auto w-full text-sm">
+        <table className="table-auto  text-[12px]">
           <thead>
             <tr className="bg-gray-200 text-left">
               <th className="border border-gray-300 px-4 py-2">Order ID</th>
@@ -89,7 +110,8 @@ const AllOrder = () => {
               <th className="border border-gray-300 px-4 py-2">Amount</th>
               <th className="border border-gray-300 px-4 py-2">Status</th>
               <th className="border border-gray-300 px-4 py-2">Order Date</th>
-              <th className="border border-gray-300 px-4 py-2">Actions</th>
+              <th className="border border-gray-300 px-4 py-2">Order Date</th>
+              <th className="border border-gray-300 px-4 py-2">Update Date</th>
             </tr>
           </thead>
           <tbody>
@@ -112,6 +134,7 @@ const AllOrder = () => {
                   {order.status}
                 </td>
                 <td className="border border-gray-300 px-4 py-2">{new Date(order.createdAt).toLocaleString()}</td>
+                <td className="border border-gray-300 px-4 py-2">{new Date(order.updatedAt).toLocaleString()}</td>
                 <td className="border border-gray-300 px-4 py-2">
                   <button
                     onClick={() => handleDelete(order._id)}
