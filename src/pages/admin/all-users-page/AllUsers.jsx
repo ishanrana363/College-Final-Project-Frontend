@@ -5,6 +5,7 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 import { baseUrl } from "../../../util/baseUrl";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { deleteAlert } from "../../../helper/deleteAlert";
 
 const UserTableWithModal = () => {
   const getToken = localStorage.getItem("token");
@@ -55,15 +56,34 @@ const UserTableWithModal = () => {
     refetch();
   };
 
-  const handleDelete = (id) => {
-  
+  const handleDelete = async(id) => {
+    try {
+      const resp = await deleteAlert();
+      if(resp.isConfirmed){
+        let res = await axios.delete(`${baseUrl()}/delete-user/${id}`, config);
+        if (res) {
+          Swal.fire({
+            title: 'User deleted successfully!',
+            icon:'success',
+            confirmButtonText: 'Close',
+          });
+        }
+        refetch();
+      }
+    } catch (error) {
+      Swal.fire({
+        title: 'Error deleting user',
+        icon: 'error',
+        confirmButtonText: 'Close',
+      })
+    }
   };
 
   const filteredUsers = users.filter((user) =>
     (user.username?.toLowerCase() || "").includes(searchQuery.toLowerCase()) ||
     (user.email?.toLowerCase() || "").includes(searchQuery.toLowerCase()) ||
     (user.profassion?.toLowerCase() || "").includes(searchQuery.toLowerCase()) ||
-    (user.status?.toLowerCase() || "").includes(searchQuery.toLowerCase())
+    (user.role?.toLowerCase() || "").includes(searchQuery.toLowerCase())
   );
 
   return (
