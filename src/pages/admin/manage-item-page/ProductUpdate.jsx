@@ -7,6 +7,7 @@ import axios from "axios";
 import { uploadImg } from "../../../upload-img/UploadImg";
 import { updateAlert } from "../../../helper/loginAlert";
 import Swal from "sweetalert2";
+import Spinner from "../../../components/loading-spinner/Spinner";
 
 const ProductUpdate = () => {
     const { id } = useParams();
@@ -92,7 +93,13 @@ const ProductUpdate = () => {
             console.error(error);
         }
 
+        refetch();
+
     }
+
+    if (isLoading) return <div>
+        <Spinner></Spinner>
+    </div>
 
     return (
         <div className=" mx-auto p-6 bg-white shadow-md rounded-md">
@@ -214,7 +221,7 @@ const ProductUpdate = () => {
                 <button
                     type="submit"
                     disabled={loading} // Disable button when loading
-                    className={`w-1/6 bg-blue-500 text-white font-medium py-2 rounded ${loading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-600"
+                    className={`w-1/6 bg-[#EF4444] text-white font-medium py-2 rounded ${loading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-600"
                         } focus:outline-none focus:ring focus:ring-blue-300`}
                 >
                     {loading ? (

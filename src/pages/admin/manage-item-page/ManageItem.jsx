@@ -156,7 +156,7 @@ const ManageItem = () => {
               <td className="px-4 py-2">{product.color}</td>
               <td className="px-4 py-2">{product.rating}</td>
               <td className="px-4 py-2">
-                <Link to={`/dashboard/product-details/${product?._id}`}>
+                <Link className="underline" to={`/dashboard/product-details/${product?._id}`}>
                   {product.name.slice(0, 5)}..
                 </Link>
               </td>
