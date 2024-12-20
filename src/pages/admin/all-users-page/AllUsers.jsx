@@ -56,15 +56,15 @@ const UserTableWithModal = () => {
     refetch();
   };
 
-  const handleDelete = async(id) => {
+  const handleDelete = async (id) => {
     try {
       const resp = await deleteAlert();
-      if(resp.isConfirmed){
+      if (resp.isConfirmed) {
         let res = await axios.delete(`${baseUrl()}/delete-user/${id}`, config);
         if (res) {
           Swal.fire({
             title: 'User deleted successfully!',
-            icon:'success',
+            icon: 'success',
             confirmButtonText: 'Close',
           });
         }
@@ -87,7 +87,7 @@ const UserTableWithModal = () => {
   );
 
   return (
-    <div className="p-6">
+    <div className="">
       <Helmet>
         <title>Dashboard | Manage Users</title>
       </Helmet>
