@@ -12,6 +12,8 @@ const TrendingProduct = () => {
         setVisibleProduct((prevState) => prevState + 8); // Load 8 more products
     };
 
+    
+
     return (
         <div className="w-11/12 mx-auto">
             {/* Header Section */}

@@ -54,6 +54,14 @@ export const router = createBrowserRouter([
             {
                 path:"/order-details/:id",
                 element : <OrderDetails></OrderDetails>
+            },
+            {
+                path : "/pages",
+                element : <div className="h-screen flex items-center justify-center " > <h1> Working this pages </h1> </div>
+            },
+            {
+                path : "/contact",
+                element : <div className="h-screen flex items-center justify-center " > <h1> Up comming this pages </h1> </div>
             }
         ]
     },
