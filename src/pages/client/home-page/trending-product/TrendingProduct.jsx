@@ -12,7 +12,15 @@ const TrendingProduct = () => {
         setVisibleProduct((prevState) => prevState + 8); // Load 8 more products
     };
 
-    
+    const [searchTearm] = useState("")
+
+    const filteredBlogs = products.filter(product =>
+        (product.title?.toLowerCase() || "").includes(searchTearm.toLowerCase()) ||
+        (product.description?.toLowerCase() || "").includes(searchTearm.toLowerCase()) ||
+        (product.author?.authorName?.toLowerCase() || "").includes(searchTearm.toLowerCase())
+    );
+
+
 
     return (
         <div className="w-11/12 mx-auto">
@@ -30,7 +38,7 @@ const TrendingProduct = () => {
             {/* Product List Section */}
             <div className="mt-6">
                 {/* Render Product Cards */}
-                <ProductCard product={products.slice(0, visibleProduct)} />
+                <ProductCard product={filteredBlogs.slice(0, visibleProduct)} />
             </div>
 
             {/* Load More Button */}
